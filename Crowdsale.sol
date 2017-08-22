@@ -22,15 +22,15 @@ contract Crowdsale is Pausable, PullPayment {
 	* Constants
 	*/
 	/* Minimum number of XXXCoin to sell */
-	uint public constant MIN_CAP = 3000000000; // 300,000 SkinCoins
+	uint public constant MIN_CAP = 3000000000; // 300,000 XXXCoins
 	/* Maximum number of XXXCoin to sell */
-	uint public constant MAX_CAP = 90000000000; // 9,000,000 SkinCoins
+	uint public constant MAX_CAP = 90000000000; // 9,000,000 XXXCoins
 	/* Minimum amount to invest */
 	uint public constant MIN_INVEST_ETHER = 100 finney;
 	/* Crowdsale period */
 	uint private constant CROWDSALE_PERIOD = 10 days;
 	/* Number of XXXCoins per Ether */
-	uint public constant COIN_PER_ETHER = 7000000; // 700 SkinCoins
+	uint public constant COIN_PER_ETHER = 7000000; // 700 XXXCoins
 
 
 	/*
@@ -148,7 +148,7 @@ contract Crowdsale is Pausable, PullPayment {
 		if (!multisigEther.send(this.balance)) throw; // Move the remaining Ether to the multisig address
 		
 		uint remains = coin.balanceOf(this);
-		if (remains > 0) { // Burn the rest of SkinCoins
+		if (remains > 0) { // Burn the rest of XXXCoins
 			if (!coin.burn(remains)) throw ;
 		}
 		crowdsaleClosed = true;
@@ -172,7 +172,7 @@ contract Crowdsale is Pausable, PullPayment {
 	/**
 	 * Manually back XXXCoin owner address.
 	 */
-	function backSkinCoinOwner() onlyOwner public {
+	function backXXXCoinOwner() onlyOwner public {
 		coin.transferOwnership(owner);
 	}
 
@@ -186,7 +186,7 @@ contract Crowdsale is Pausable, PullPayment {
 		if(remains > minCoinsToSell) throw;
 
 		Backer backer = backers[owner];
-		coin.transfer(owner, remains); // Transfer SkinCoins right now 
+		coin.transfer(owner, remains); // Transfer XXXCoins right now 
 
 		backer.coinSent = backer.coinSent.add(remains);
 
